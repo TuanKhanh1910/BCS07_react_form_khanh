@@ -9,7 +9,7 @@ const ProductList = () => {
   // console.log("student: ", student);
   const dispatch = useDispatch();
   const { arrNewStudent } = useSelector((state) => state.student);
-  console.log("arrNewStudent: ", arrNewStudent);
+  // console.log("arrNewStudent: ", arrNewStudent);
   // const getAllStudent = () => {
   //   setStudent(arrNewStudent);
   // };

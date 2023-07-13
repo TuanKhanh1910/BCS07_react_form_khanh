@@ -4,6 +4,7 @@ import { getLocal, saveLocal } from "../../pages/util/localStore";
 const initialState = {
   // arrNewStudent: [],
   arrNewStudent: getLocal("student"),
+  student: {},
 };
 
 export const studentSlice = createSlice({
@@ -28,9 +29,11 @@ export const studentSlice = createSlice({
       // console.log("filteredStudentArr: ", filteredStudentArr);
     },
     getInfoStudent: (state, action) => {
-      // let student = state.arrNewStudent.find(
-      //   (student) => student.maSV == action.payload
-      // );
+      let infoStudent = state.arrNewStudent.find(
+        (student) => student.maSV == action.payload
+      );
+      state.student = infoStudent;
+      // console.log("state.student: ", state.student);
 
       console.log("action.payload: ", action.payload);
     },

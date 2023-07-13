@@ -3,12 +3,13 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { getLocal, saveLocal } from "./util/localStore";
 import { useDispatch, useSelector } from "react-redux";
-import { setDuLieu } from "../redux/slices/studentSlice";
+import { getInfoStudent, setDuLieu } from "../redux/slices/studentSlice";
 
 const FormProduct = () => {
   const dispatch = useDispatch();
 
-  // const { arrNewStudent } = useSelector((state) => state.student);
+  const { student } = useSelector((state) => state.student);
+  console.log("student: ", student);
   // console.log("arrNewStudent: ", arrNewStudent);
   const formik = useFormik({
     initialValues: {
@@ -18,11 +19,13 @@ const FormProduct = () => {
       email: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       dispatch(setDuLieu(values));
       formik.resetForm();
       // saveLocal("student", arrNewStudent);
       // getLocal("student");
+      // dispatch(getInfoStudent(student));
+      // console.log("getInfoStudent: ", getInfoStudent);
     },
     validationSchema: yup.object({
       maSV: yup.string().required("Vui nhập đầy đủ"),

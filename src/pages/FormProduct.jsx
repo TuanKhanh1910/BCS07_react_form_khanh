@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { getLocal, saveLocal } from "./util/localStore";
@@ -7,9 +7,11 @@ import { getInfoStudent, setDuLieu } from "../redux/slices/studentSlice";
 
 const FormProduct = () => {
   const dispatch = useDispatch();
+  const [newStudent, setNewStudent] = useState();
 
   const { student } = useSelector((state) => state.student);
   console.log("student: ", student);
+
   // console.log("arrNewStudent: ", arrNewStudent);
   const formik = useFormik({
     initialValues: {
@@ -45,7 +47,7 @@ const FormProduct = () => {
         .required("Vui nhập đầy đủ"),
     }),
   });
-  const { handleSubmit, handleChange, handleBlur } = formik;
+  const { handleSubmit, handleChange, handleBlur, handleReset } = formik;
   const { maSV, name, phone, email } = formik.errors;
   return (
     <div>
@@ -61,7 +63,7 @@ const FormProduct = () => {
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formik.values.maSV}
+                value={formik.values.maSV || student.maSV || ""}
                 className="form-control"
                 type="text"
                 name="maSV"
@@ -77,7 +79,7 @@ const FormProduct = () => {
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formik.values.name}
+                value={formik.values.name || student.name || ""}
                 className="form-control"
                 type="text"
                 name="name"
@@ -95,7 +97,7 @@ const FormProduct = () => {
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formik.values.phone}
+                value={formik.values.phone || student.phone || ""}
                 className="form-control"
                 type="text"
                 name="phone"
@@ -111,7 +113,7 @@ const FormProduct = () => {
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formik.values.email}
+                value={formik.values.email || student.email || ""}
                 className="form-control"
                 type="text"
                 name="email"

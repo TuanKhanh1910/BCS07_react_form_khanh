@@ -14,6 +14,16 @@ const ProductList = () => {
   // useEffect(() => {
   //   getAllStudent();
   // }, []);
+  const deleteStudent = (maSV) => {
+    let filteredStudentArr = arrNewStudent.filter(
+      (student) => student.maSV != maSV
+    );
+    // let index = arrNewStudent.findIndex((item) => item.maSV == maSV);
+    // console.log("maSV: ", maSV);
+    // console.log("index: ", index);
+    console.log("maSV: ", maSV);
+    console.log("filteredStudentArr: ", filteredStudentArr);
+  };
 
   return (
     <div>
@@ -50,23 +60,7 @@ const ProductList = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* {student.map((item, index) => {
-                  const { maSV, name, phone, email } = item;
-
-                  return (
-                    <tr key={index}>
-                      <td>{maSV}</td>
-                      <td>{name}</td>
-                      <td>{phone}</td>
-                      <td>{email}</td>
-                      <td>
-                        <button className="btn btn-danger me-2">Xóa</button>
-                        <button className="btn btn-warning">Sửa</button>
-                      </td>
-                    </tr>
-                  );
-                })} */}
-                {arrNewStudent.map((item, index) => {
+                {arrNewStudent?.map((item, index) => {
                   const { maSV, name, phone, email } = item;
                   if (item != "") {
                     return (
@@ -76,7 +70,14 @@ const ProductList = () => {
                         <td>{phone}</td>
                         <td>{email}</td>
                         <td>
-                          <button className="btn btn-danger me-2">Xóa</button>
+                          <button
+                            onClick={() => {
+                              deleteStudent(maSV);
+                            }}
+                            className="btn btn-danger me-2"
+                          >
+                            Xóa
+                          </button>
                           <button className="btn btn-warning">Sửa</button>
                         </td>
                       </tr>

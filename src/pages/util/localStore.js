@@ -4,5 +4,5 @@ export const saveLocal = (ten, data) => {
 };
 export const getLocal = (ten) => {
   const value = localStorage.getItem(ten);
-  return JSON.parse(value) ? JSON.parse(value) : "";
+  return JSON.parse(value) ? JSON.parse(value) : [];
 };

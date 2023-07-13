@@ -3,7 +3,7 @@ import { getLocal, saveLocal } from "../../pages/util/localStore";
 
 const initialState = {
   // arrNewStudent: [],
-  arrNewStudent: [getLocal("student")],
+  arrNewStudent: getLocal("student"),
 };
 
 export const studentSlice = createSlice({
@@ -14,7 +14,6 @@ export const studentSlice = createSlice({
     setDuLieu: (state, action) => {
       // console.log("action: ", action);
       console.log("action: ", action.payload);
-      // check xem hoTen có dữ liêu hay không, nếu ko có set dữ liệu cho nó
 
       state.arrNewStudent.push(action.payload);
       saveLocal("student", state.arrNewStudent);

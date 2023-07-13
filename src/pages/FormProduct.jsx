@@ -19,8 +19,8 @@ const FormProduct = () => {
     },
     onSubmit: (values) => {
       console.log(values);
-      formik.resetForm();
       dispatch(setDuLieu(values));
+      formik.resetForm();
       // saveLocal("student", arrNewStudent);
       // getLocal("student");
     },

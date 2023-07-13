@@ -1,12 +1,15 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { saveLocal } from "./util/localStore";
-import { useDispatch } from "react-redux";
+import { getLocal, saveLocal } from "./util/localStore";
+import { useDispatch, useSelector } from "react-redux";
 import { setDuLieu } from "../redux/slices/studentSlice";
 
 const FormProduct = () => {
   const dispatch = useDispatch();
+
+  // const { arrNewStudent } = useSelector((state) => state.student);
+  // console.log("arrNewStudent: ", arrNewStudent);
   const formik = useFormik({
     initialValues: {
       maSV: "",
@@ -16,9 +19,10 @@ const FormProduct = () => {
     },
     onSubmit: (values) => {
       console.log(values);
-      saveLocal("student", values);
       formik.resetForm();
       dispatch(setDuLieu(values));
+      // saveLocal("student", arrNewStudent);
+      // getLocal("student");
     },
     validationSchema: yup.object({
       maSV: yup.string().required("Vui nhập đầy đủ"),
@@ -119,7 +123,7 @@ const FormProduct = () => {
         </div>
         <div className="card-footer">
           <button className="btn btn-primary me-3" type="submit">
-            Tạo sản phẩm
+            Thêm sinh viên
           </button>
           <button className="btn btn-warning" type="button">
             Cập nhật

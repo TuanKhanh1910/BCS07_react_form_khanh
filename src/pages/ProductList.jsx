@@ -3,14 +3,17 @@ import FormProduct from "./FormProduct";
 import { useSelector } from "react-redux";
 
 const ProductList = () => {
-  const [student, setStudent] = useState([]);
+  // const [student, setStudent] = useState([]);
+  // console.log("setStudent: ", setStudent);
+  // console.log("student: ", student);
   const { arrNewStudent } = useSelector((state) => state.student);
-  const getAllStudent = () => {
-    setStudent(arrNewStudent);
-  };
-  useEffect(() => {
-    getAllStudent();
-  }, []);
+  console.log("arrNewStudent: ", arrNewStudent);
+  // const getAllStudent = () => {
+  //   setStudent(arrNewStudent);
+  // };
+  // useEffect(() => {
+  //   getAllStudent();
+  // }, []);
 
   return (
     <div>
@@ -47,7 +50,23 @@ const ProductList = () => {
                 </tr>
               </thead>
               <tbody>
-                {student.map((item, index) => {
+                {/* {student.map((item, index) => {
+                  const { maSV, name, phone, email } = item;
+
+                  return (
+                    <tr key={index}>
+                      <td>{maSV}</td>
+                      <td>{name}</td>
+                      <td>{phone}</td>
+                      <td>{email}</td>
+                      <td>
+                        <button className="btn btn-danger me-2">Xóa</button>
+                        <button className="btn btn-warning">Sửa</button>
+                      </td>
+                    </tr>
+                  );
+                })} */}
+                {arrNewStudent.map((item, index) => {
                   const { maSV, name, phone, email } = item;
                   if (item != "") {
                     return (

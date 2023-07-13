@@ -17,17 +17,27 @@ export const studentSlice = createSlice({
 
       state.arrNewStudent.push(action.payload);
       saveLocal("student", state.arrNewStudent);
-      // console.log("state.arrNewStudent: ", state.arrNewStudent);
-      // console.log(state.arrNewStudent);
-      //chỗ nãy xử lí sai rồi
-      // sao dị
-      // chỗ này phair push cái action.payload vào arr chứ
-      // à à là mình state.arr.push(ac.pay) đúng ko, yess, hèn gì, để tui test thử
+    },
+    xoaDuLieu: (state, action) => {
+      let filteredStudentArr = state.arrNewStudent.filter(
+        (student) => student.maSV != action.payload
+      );
+      saveLocal("student", filteredStudentArr);
+      state.arrNewStudent = filteredStudentArr;
+      console.log("action.payload: ", action.payload);
+      // console.log("filteredStudentArr: ", filteredStudentArr);
+    },
+    getInfoStudent: (state, action) => {
+      // let student = state.arrNewStudent.find(
+      //   (student) => student.maSV == action.payload
+      // );
+
+      console.log("action.payload: ", action.payload);
     },
   },
 });
 
-export const { setDuLieu } = studentSlice.actions;
+export const { setDuLieu, xoaDuLieu, getInfoStudent } = studentSlice.actions;
 // để sử dụng trong component
 
 export default studentSlice.reducer;

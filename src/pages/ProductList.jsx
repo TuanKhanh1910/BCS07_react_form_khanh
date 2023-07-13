@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import FormProduct from "./FormProduct";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getInfoStudent, xoaDuLieu } from "../redux/slices/studentSlice";
 
 const ProductList = () => {
   // const [student, setStudent] = useState([]);
   // console.log("setStudent: ", setStudent);
   // console.log("student: ", student);
+  const dispatch = useDispatch();
   const { arrNewStudent } = useSelector((state) => state.student);
   console.log("arrNewStudent: ", arrNewStudent);
   // const getAllStudent = () => {
@@ -15,14 +17,10 @@ const ProductList = () => {
   //   getAllStudent();
   // }, []);
   const deleteStudent = (maSV) => {
-    let filteredStudentArr = arrNewStudent.filter(
-      (student) => student.maSV != maSV
-    );
-    // let index = arrNewStudent.findIndex((item) => item.maSV == maSV);
-    // console.log("maSV: ", maSV);
-    // console.log("index: ", index);
-    console.log("maSV: ", maSV);
-    console.log("filteredStudentArr: ", filteredStudentArr);
+    dispatch(xoaDuLieu(maSV));
+  };
+  const layThongTinStudent = (maSV) => {
+    dispatch(getInfoStudent(maSV));
   };
 
   return (
@@ -78,7 +76,14 @@ const ProductList = () => {
                           >
                             Xóa
                           </button>
-                          <button className="btn btn-warning">Sửa</button>
+                          <button
+                            onClick={() => {
+                              layThongTinStudent(maSV);
+                            }}
+                            className="btn btn-warning"
+                          >
+                            Sửa
+                          </button>
                         </td>
                       </tr>
                     );

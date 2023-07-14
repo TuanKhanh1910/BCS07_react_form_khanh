@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductList from "./pages/ProductList";
 
 function App() {
-  console.log("render");
+  // console.log("render");
   return (
     <BrowserRouter>
       <Routes>

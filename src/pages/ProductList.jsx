@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import FormProduct from "./FormProduct";
 import { useDispatch, useSelector } from "react-redux";
-import { getInfoStudent, xoaDuLieu } from "../redux/slices/studentSlice";
+import {
+  getInfoStudent,
+  searchStudent,
+  xoaDuLieu,
+} from "../redux/slices/studentSlice";
+import { Input } from "antd";
 
 const ProductList = () => {
   // const [student, setStudent] = useState([]);
@@ -22,7 +27,9 @@ const ProductList = () => {
   const layThongTinStudent = (maSV) => {
     dispatch(getInfoStudent(maSV));
   };
-
+  const handleSeach = (name) => {
+    dispatch(searchStudent(name));
+  };
   // console.log("CpmP render");
   return (
     <div>
@@ -31,15 +38,11 @@ const ProductList = () => {
           <div className="container-fluid">
             <a className="navbar-brand text-white">Danh sách học viên</a>
             <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
+              <Input.Search
+                onSearch={handleSeach}
+                placeholder="Search by username"
+                enterButton
               />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
             </form>
           </div>
         </nav>
@@ -61,7 +64,7 @@ const ProductList = () => {
               <tbody>
                 {arrNewStudent?.map((item, index) => {
                   const { maSV, name, phone, email } = item;
-                  if (item != "") {
+                  if (item[0] != []) {
                     return (
                       <tr key={index}>
                         <td>{maSV}</td>

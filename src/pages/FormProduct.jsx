@@ -14,8 +14,8 @@ const FormProduct = () => {
   const [newStudent, setNewStudent] = useState();
 
   const { student, arrNewStudent } = useSelector((state) => state.student);
-  console.log("arrNewStudent: ", arrNewStudent);
-  console.log("student: ", student);
+  // console.log("arrNewStudent: ", arrNewStudent);
+  // console.log("student: ", student);
 
   // console.log("arrNewStudent: ", arrNewStudent);
   const formik = useFormik({
@@ -61,6 +61,11 @@ const FormProduct = () => {
   }, [student]);
   const { maSV, name, phone, email } = formik.errors;
   // console.log(formik.values);
+  const updateStudent = () => {
+    dispatch(capNhatStudent(formik.values));
+    formik.resetForm();
+    // saveLocal(student, formik.values);
+  };
 
   return (
     <div>
@@ -144,10 +149,7 @@ const FormProduct = () => {
             Thêm sinh viên
           </button>
           <button
-            onClick={() => {
-              dispatch(capNhatStudent(formik.values));
-              formik.resetForm();
-            }}
+            onClick={updateStudent}
             className="btn btn-warning"
             type="button"
           >

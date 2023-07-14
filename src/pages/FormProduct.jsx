@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { getLocal, saveLocal } from "./util/localStore";
+import { getLocal, saveLocal } from "../util/localStore";
 import { useDispatch, useSelector } from "react-redux";
 import {
   capNhatStudent,

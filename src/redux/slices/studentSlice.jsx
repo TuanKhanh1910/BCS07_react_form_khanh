@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLocal, saveLocal } from "../../pages/util/localStore";
+import removeVietnameseTones from "../../util/helper";
+import { getLocal, saveLocal } from "../../util/localStore";
 
 const initialState = {
   // arrNewStudent: [],
@@ -51,10 +52,18 @@ export const studentSlice = createSlice({
       saveLocal("student", state.arrNewStudent);
     },
     searchStudent: (state, action) => {
-      let arrSearch = state.arrNewStudent.filter(
-        (item) => item.name == action.payload
-      );
-      console.log("arrSearch: ", arrSearch);
+      let newKeyWord = removeVietnameseTones(action.payload);
+      let arrSearch = state.arrNewStudent.filter((item) => {
+        let newStudent = removeVietnameseTones(item.name);
+        if (newStudent == action.payload) {
+          return newStudent
+            .toLowerCase()
+            .trim()
+            .includes(newKeyWord.toLowerCase().trim());
+        }
+        // console.log("newStudent: ", newStudent);
+      });
+      // console.log("arrSearch: ", arrSearch);
       state.arrNewStudent = arrSearch;
 
       // console.log("arrSearch: ", arrSearch);

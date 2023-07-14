@@ -37,10 +37,23 @@ export const studentSlice = createSlice({
 
       console.log("action.payload: ", action.payload);
     },
+    capNhatStudent: (state, action) => {
+      let index = state.arrNewStudent.findIndex(
+        (item) => item.maSV != action.payload
+      );
+      if (index != -1) {
+        state.arrNewStudent[index] = action.payload;
+      }
+      console.log("index: ", index);
+      console.log("action: ", action);
+      // console.log("state.arrNewStudent[index]: ", state.arrNewStudent[index]);
+      saveLocal("student", state.arrNewStudent[index]);
+    },
   },
 });
 
-export const { setDuLieu, xoaDuLieu, getInfoStudent } = studentSlice.actions;
+export const { setDuLieu, xoaDuLieu, getInfoStudent, capNhatStudent } =
+  studentSlice.actions;
 // để sử dụng trong component
 
 export default studentSlice.reducer;

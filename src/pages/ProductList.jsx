@@ -23,6 +23,7 @@ const ProductList = () => {
     dispatch(getInfoStudent(maSV));
   };
 
+  // console.log("CpmP render");
   return (
     <div>
       <div>

@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { getLocal, saveLocal } from "./util/localStore";
 import { useDispatch, useSelector } from "react-redux";
-import { getInfoStudent, setDuLieu } from "../redux/slices/studentSlice";
+import {
+  capNhatStudent,
+  getInfoStudent,
+  setDuLieu,
+} from "../redux/slices/studentSlice";
 
 const FormProduct = () => {
   const dispatch = useDispatch();
   const [newStudent, setNewStudent] = useState();
 
-  const { student } = useSelector((state) => state.student);
+  const { student, arrNewStudent } = useSelector((state) => state.student);
+  console.log("arrNewStudent: ", arrNewStudent);
   console.log("student: ", student);
 
   // console.log("arrNewStudent: ", arrNewStudent);
@@ -47,8 +52,16 @@ const FormProduct = () => {
         .required("Vui nhập đầy đủ"),
     }),
   });
-  const { handleSubmit, handleChange, handleBlur, handleReset } = formik;
+  const { handleSubmit, handleChange, handleBlur, handleReset, setFieldValue } =
+    formik;
+  useEffect(() => {
+    if (student) {
+      formik.setValues(student);
+    }
+  }, [student]);
   const { maSV, name, phone, email } = formik.errors;
+  // console.log(formik.values);
+
   return (
     <div>
       <form
@@ -63,7 +76,7 @@ const FormProduct = () => {
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formik.values.maSV || student.maSV || ""}
+                value={formik.values.maSV || ""}
                 className="form-control"
                 type="text"
                 name="maSV"
@@ -79,7 +92,7 @@ const FormProduct = () => {
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formik.values.name || student.name || ""}
+                value={formik.values.name || ""}
                 className="form-control"
                 type="text"
                 name="name"
@@ -97,7 +110,7 @@ const FormProduct = () => {
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formik.values.phone || student.phone || ""}
+                value={formik.values.phone || ""}
                 className="form-control"
                 type="text"
                 name="phone"
@@ -113,7 +126,7 @@ const FormProduct = () => {
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formik.values.email || student.email || ""}
+                value={formik.values.email || ""}
                 className="form-control"
                 type="text"
                 name="email"
@@ -130,7 +143,14 @@ const FormProduct = () => {
           <button className="btn btn-primary me-3" type="submit">
             Thêm sinh viên
           </button>
-          <button className="btn btn-warning" type="button">
+          <button
+            onClick={() => {
+              dispatch(capNhatStudent(formik.values));
+              formik.resetForm();
+            }}
+            className="btn btn-warning"
+            type="button"
+          >
             Cập nhật
           </button>
         </div>

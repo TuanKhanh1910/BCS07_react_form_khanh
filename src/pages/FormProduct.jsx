@@ -57,6 +57,7 @@ const FormProduct = () => {
   useEffect(() => {
     if (student) {
       formik.setValues(student);
+      // sử dụng setValues để có thể đưa lại những value lên ô input để có thể sử dụng luôn validationSchema
     }
   }, [student]);
   const { maSV, name, phone, email } = formik.errors;

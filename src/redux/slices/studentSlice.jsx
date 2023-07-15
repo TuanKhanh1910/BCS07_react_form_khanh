@@ -5,6 +5,7 @@ import { getLocal, saveLocal } from "../../util/localStore";
 const initialState = {
   // arrNewStudent: [],
   arrNewStudent: getLocal("student"),
+  // tạo ra 1 object rỗng để chứa cái thk cần chỉnh sửa
   student: {},
 };
 
@@ -30,19 +31,23 @@ export const studentSlice = createSlice({
       // console.log("filteredStudentArr: ", filteredStudentArr);
     },
     getInfoStudent: (state, action) => {
+      // dùng find để tìm ra cái thk đang muốn sửa là thk nào
       let infoStudent = state.arrNewStudent.find(
         (student) => student.maSV == action.payload
       );
+      // sau khi tìm được thk cần sửa thì cho nó thêm vào cái object đang rỗng là student
       state.student = infoStudent;
       // console.log("state.student: ", state.student);
 
       console.log("action.payload: ", action.payload);
     },
     capNhatStudent: (state, action) => {
+      // tạo ra hàm để tìm vị trí của cái thk đang cần chỉnh sửa nó sẽ trả ra index của thk đó
       let index = state.arrNewStudent.findIndex(
         (item) => item.maSV == action.payload.maSV
       );
       if (index != -1) {
+        // sau khi tìm ra được rồi phải xét đk nếu nó khác -1 thì thế thk action.payload là nguyên 1 cái object đã được chỉnh sửa thế vào cái thk đang nằm trong cái mảng
         state.arrNewStudent[index] = action.payload;
       }
       // console.log("action.payload: ", action.payload);
@@ -61,8 +66,9 @@ export const studentSlice = createSlice({
             .trim()
             .includes(newKeyWord.toLowerCase().trim());
         }
-        // console.log("newStudent: ", newStudent);
+        console.log("newStudent: ", newStudent);
       });
+      console.log("newKeyWord: ", newKeyWord);
       // console.log("arrSearch: ", arrSearch);
       state.arrNewStudent = arrSearch;
 

@@ -57,6 +57,7 @@ export const studentSlice = createSlice({
       saveLocal("student", state.arrNewStudent);
     },
     searchStudent: (state, action) => {
+      // nơi làm cái search
       let newKeyWord = removeVietnameseTones(action.payload);
       let arrSearch = state.arrNewStudent.filter((item) => {
         let newStudent = removeVietnameseTones(item.name);

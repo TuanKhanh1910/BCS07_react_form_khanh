@@ -56,26 +56,40 @@ export const studentSlice = createSlice({
       // console.log("state.arrNewStudent[index]: ", state.arrNewStudent[index]);
       saveLocal("student", state.arrNewStudent);
     },
-    searchStudent: (state, action) => {
-      // nơi làm cái search
-      let newKeyWord = removeVietnameseTones(action.payload);
-      let arrSearch = state.arrNewStudent.filter((item) => {
-        let newStudent = removeVietnameseTones(item.name);
-        if (newStudent == action.payload) {
-          return newStudent
-            .toLowerCase()
-            .trim()
-            .includes(newKeyWord.toLowerCase().trim());
-        }
-        console.log("newStudent: ", newStudent);
-      });
-      console.log("newKeyWord: ", newKeyWord);
-      // console.log("arrSearch: ", arrSearch);
-      state.arrNewStudent = arrSearch;
+    // searchStudent: (state, action) => {
+    //   // nơi làm cái search
+    //   let newKeyWord = removeVietnameseTones(action.payload);
+    //   let arrSearch = state.arrNewStudent.filter((item) => {
+    //     let newStudent = removeVietnameseTones(item.name);
+    //     if (newStudent == action.payload) {
+    //       return newStudent
+    //         .toLowerCase()
+    //         .trim()
+    //         .includes(newKeyWord.toLowerCase().trim());
+    //     }
+    //     console.log("newStudent: ", newStudent);
+    //   });
+    //   console.log("newKeyWord: ", newKeyWord);
+    //   // console.log("arrSearch: ", arrSearch);
+    //   state.arrNewStudent = arrSearch;
 
-      // console.log("arrSearch: ", arrSearch);
-      // console.log("action: ", action);
-      // // state.arrNewStudent = arrSearch;
+    //   // console.log("arrSearch: ", arrSearch);
+    //   // console.log("action: ", action);
+    //   // // state.arrNewStudent = arrSearch;
+    // },
+    searchStudent: (state, action) => {
+      console.log("action: ", action);
+      // nơi làm cái search
+      let searchStudent = removeVietnameseTones(action.payload);
+      const cloneStudent = [...state.arrNewStudent];
+      if (searchStudent == "") {
+        state.arrNewStudent = getLocal("student");
+      } else {
+        let arrSearch = cloneStudent.filter((item) =>
+          item.name.toLowerCase().trim().includes(searchStudent)
+        );
+        state.arrNewStudent = arrSearch;
+      }
     },
   },
 });
